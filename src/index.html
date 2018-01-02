@@ -1,0 +1,156 @@
+<html lang="en">
+<head>
+    <title>VoliBot</title>
+    <meta name="description" content="The new League client. Except it's on your phone." />
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Browser favicon -->
+    <link rel="shortcut icon" href="icons/icon-72x72.png" sizes="72x72">
+
+    <!-- See https://goo.gl/qRE0vM -->
+    <meta name="theme-color" content="#415254">
+
+    <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="VoliBot">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="VoliBot">
+
+    <!-- Homescreen icons -->
+    <link rel="apple-touch-icon" href="icons/icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="icons/icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="96x96" href="icons/icon-96x96.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="icons/icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192x192.png">
+
+    <!-- Tile icon for Windows 8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="icons/icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#415254">
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: LoL Display Bold;
+            font-weight: 700;
+            font-style: normal;
+            src: url(https://lolstatic-a.akamaihd.net/awesomefonts/1.0.0/Fonts/BeaufortforLOL-Bold.woff) format("woff"), url(https://lolstatic-a.akamaihd.net/awesomefonts/1.0.0/Fonts/BeaufortforLOL-Bold.ttf) format("truetype"), url(https://lolstatic-a.akamaihd.net/awesomefonts/1.0.0/Fonts/BeaufortforLOL-Bold.eot?#iefix) format("eot"), url(https://lolstatic-a.akamaihd.net/awesomefonts/1.0.0/Fonts/BeaufortforLOL-Bold.svg) format("svg")
+        }
+
+        @font-face {
+            font-family: LoL Display;
+            font-weight: 400;
+            font-style: normal;
+            src: url(https://lolstatic-a.akamaihd.net/awesomefonts/1.0.0/Fonts/BeaufortforLOL-Regular.woff2) format("woff2"), url(https://lolstatic-a.akamaihd.net/awesomefonts/1.0.0/Fonts/BeaufortforLOL-Regular.ttf) format("truetype"), url(https://lolstatic-a.akamaihd.net/awesomefonts/1.0.0/Fonts/BeaufortforLOL-Regular.eot?#iefix) format("eot"), url(https://lolstatic-a.akamaihd.net/awesomefonts/1.0.0/Fonts/BeaufortforLOL-Regular.woff) format("woff"), url(https://lolstatic-a.akamaihd.net/awesomefonts/1.0.0/Fonts/BeaufortforLOL-Regular.svg) format("svg");
+        }
+
+        @font-face {
+            font-family: LoL Body;
+            font-weight: 400;
+            font-style: normal;
+            src: url(https://lolstatic-a.akamaihd.net/awesomefonts/1.0.0/Fonts/Spiegel-Regular.woff) format("woff"), url(https://lolstatic-a.akamaihd.net/awesomefonts/1.0.0/Fonts/Spiegel-Regular.svg) format("svg"), url(https://lolstatic-a.akamaihd.net/awesomefonts/1.0.0/Fonts/Spiegel-Regular.ttf) format("truetype");
+        }
+        /** **/
+        /* Turn on a 13x13 scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 13px;
+        }
+
+        ::-webkit-scrollbar-button:vertical {
+            background-color: silver;
+            border: 1px solid gray;
+        }
+
+        /* Turn on single button up on top, and down on bottom */
+        ::-webkit-scrollbar-button:start:decrement,
+        ::-webkit-scrollbar-button:end:increment {
+            display: block;
+        }
+
+        /* Turn off the down area up on top, and up area on bottom */
+        ::-webkit-scrollbar-button:vertical:start:increment,
+        ::-webkit-scrollbar-button:vertical:end:decrement {
+            display: none;
+        }
+
+        /* Place The scroll down button at the bottom */
+        ::-webkit-scrollbar-button:vertical:increment {
+            display: none;
+        }
+
+        /* Place The scroll up button at the up */
+        ::-webkit-scrollbar-button:vertical:decrement {
+            display: none;
+        }
+
+        /* Place The scroll down button at the bottom */
+        ::-webkit-scrollbar-button:horizontal:increment {
+            display: none;
+        }
+
+        /* Place The scroll up button at the up */
+        ::-webkit-scrollbar-button:horizontal:decrement {
+            display: none;
+        }
+
+        ::-webkit-scrollbar-track:vertical {
+            background-color: blue;
+            border: 1px dashed pink;
+        }
+
+        /* Top area above thumb and below up button */
+        ::-webkit-scrollbar-track-piece:vertical:start {
+            border: 0px;
+        }
+
+        /* Bottom area below thumb and down button */
+        ::-webkit-scrollbar-track-piece:vertical:end {
+            border: 0px;
+        }
+
+        /* Track below and above */
+        ::-webkit-scrollbar-track-piece {
+            background-color: #32281f;
+        }
+
+        /* The thumb itself */
+        ::-webkit-scrollbar-thumb:vertical {
+            height: 50px;
+            background-color: #7e633b;
+        }
+
+        /* The thumb itself */
+        ::-webkit-scrollbar-thumb:horizontal {
+            height: 50px;
+            background-color: gray;
+        }
+
+        /* Corner */
+        ::-webkit-scrollbar-corner:vertical {
+            background-color: black;
+        }
+
+        /* Resizer */
+        ::-webkit-scrollbar-resizer:vertical {
+            background-color: gray;
+        }
+    </style>
+    <script type="text/javascript">
+        function disableF5(e) { if ((e.which || e.keyCode) == 116 || (e.which || e.keyCode) == 82) e.preventDefault(); };
+
+        $(document).ready(function(){
+            $(document).on("keydown", disableF5);
+        });
+    </script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script src="bundle.js"></script>
+</body>
+</html>
