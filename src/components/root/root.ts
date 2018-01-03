@@ -11,7 +11,8 @@ export interface LeagueClient {
     wallet: { ip: number, rp: number }
     statusHistory: [{ timestamp: string, status: string }]
     settings: { autoPlay: boolean, queue: number, targetLvl: number, targetBE: number }
-    socket: WebSocket;
+    phaseData: {}
+    socket: WebSocket
 }
 
 enum MessageType {
@@ -44,7 +45,6 @@ export default class Root extends Vue {
 
     //modals
     showLoginModal = false;
-    showSidebar = true;
 
     manualButtonType = "confirm";
     normalButtonType = "normal";
@@ -87,6 +87,12 @@ export default class Root extends Vue {
                     case "LoggingOut":
                         this.removeClient(data[2].id);
                         break;
+                    case "UpdatePhase":
+                        let client1 = this.instances.filter(x => x.id == data[2].id)[0];
+                        if (client1) {
+                            this.changeClientPhase(client1, data[2].phaseData);
+                        }
+                        break;
                     case "UpdateStatus":
                         let client = this.instances.filter(x => x.id == data[2].id)[0];
                         if (client) {
@@ -124,6 +130,10 @@ export default class Root extends Vue {
         this.selected = -1;
         this.instances = temp;
         this.selectedInstance = this.instances[0];
+    }
+
+    private changeClientPhase(client: LeagueClient, phase : any){
+        client.phaseData = phase;
     }
 
     private addClient(data: any) {
@@ -205,6 +215,7 @@ export default class Root extends Vue {
         let list: [number, any, string, any];
         list = [MessageType.REQUEST, "0", "RequestInstanceStart", JSON.parse("{\"username\":\"" + this.lastLolUsername + "\", \"password\": \"" + this.lastLolPassword + "\", \"region\": \"" + this.lastLolRegion + "\", \"queue\": " + this.lastLolQueue + ", \"autoplay\": " + this.autoplay + "}")];
         this.socket.send(JSON.stringify(list));
+        this.hideAddModal();
     }
 
     /**
@@ -232,13 +243,6 @@ export default class Root extends Vue {
         setTimeout(() => {
             this.tick();
         }, 500);
-    }
-
-    public toggleSidebar(){
-        if(this.showSidebar)
-            this.showSidebar = false;
-        else
-            this.showSidebar = true;
     }
 
     /**

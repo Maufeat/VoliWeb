@@ -22,7 +22,10 @@
             </div>
             <div class="stats select">
                 <span>
-                    <strong>Status:</strong> {{ instance.status }}
+                    {{ instance.status }}
+                </span><br>
+                <span v-if="instance.phaseData">
+                    {{ instance.phaseData.phase }}
                 </span>
             </div>
             <div class="actions noselect">
@@ -104,6 +107,16 @@
         public changeView(view: number){
             if(this.activeTab != view)
                 this.activeTab = view;
+        }
+
+        public changeAutoPlay(){
+            if(this.instance.settings.autoPlay)
+                this.instance.settings.autoPlay = false;
+            else
+                this.instance.settings.autoPlay = true;
+            let list: [number, any, string, any];
+            list = [10, "0", "RequestChangeAutoPlayRequestInstanceLogout", JSON.parse("{\"id\":" + this.instance.id + "}, \\\"autoPlay\\\":\"+ this.instance.settings.autoPlay\"")];
+            console.log(list);
         }
 
         public logoutAccount(){

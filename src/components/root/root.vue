@@ -23,7 +23,7 @@
             </div>
 
             <div v-else="" class="main">
-                <div v-if="showSidebar" class="left-sidebar noselect">
+                <div class="left-sidebar noselect">
                     <ul id="menu-list">
                         <li @click="selectCompactView()" v-bind:class="{ active: this.selected == -2 }">
                             <div class="client-name">
@@ -47,10 +47,6 @@
                     <div class="btn-pad">
                         <lcu-button :type="manualButtonType" @click="showAddModal()">Add new Client</lcu-button>
                     </div>
-                </div>
-                <div @click="toggleSidebar()" class="hidebar noselect">
-                    <p><</p>
-                    <p><</p>
                 </div>
                 <div v-if="selected >= 0" class="instance">
                     <league-client
@@ -104,7 +100,7 @@
                 <div v-if="showLoginModal" class="modal">
                         <div v-if="showLoginModal" class="modal-container">
                             <div class="modal-top">
-                                <button style="left: 150px;position: relative;" @click="hideAddModal()" class="close">X</button>
+                                <button style="left: 150px;position: relative;    min-width: 0;" @click="hideAddModal()" class="close">X</button>
                                 <h2>Add new Account</h2>
                             </div>
                             <div class="modal-content">
@@ -446,6 +442,7 @@
             flex-direction column
             box-shadow 0 0 15px 5px rgba(0,0,0,0.5)
             z-index 9999
+            resize:horizontal;
             overflow hidden
             h2
                 padding-left: 10px;
